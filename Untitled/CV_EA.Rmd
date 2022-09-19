@@ -1,0 +1,66 @@
+---
+name: Eric
+surname: Armijo
+position: "Analista de datos"
+address: "Heuris"
+phone: +591 69166169
+www: earmijo.com
+email: "earmijo.prof@gmail.com"
+twitter: rcrmj
+github: YoViajo
+linkedin: ericarmijo
+date: "`r format(Sys.time(), '%B %Y')`"
+output: 
+  vitae::awesomecv:
+    page_total: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(vitae)
+```
+
+# Algo sobre mi
+
+ * I poisoned myself doing research.
+ * I was the first woman to win a Nobel prize
+ * I was the first person and only woman to win a Nobel prize in two different sciences.
+
+# Educación
+
+```{r}
+library(tibble)
+tribble(
+  ~ Grado, ~ Año, ~ Institución, ~ Donde,
+  "Máster en Inteligencia de Negocios", "2022", "Universidad Católica Boliviana", "Santa Cruz, SC, Bolivia",
+  "Máster en Geografía", "2003", "University of Maryland", "College Park, MD, EE.UU.",
+  "Licenciado en Ingeniería de Sistemas", "1999", "Universidad Privada de Santa Cruz (UPSA)", "Santa Cruz, SC, Bolivia"
+) %>% 
+  detailed_entries(Grado, Año, Institución, Donde)
+```
+
+# Distinciones
+
+```{r}
+tribble(
+  ~Year, ~Type, ~Desc,
+  1903, "Physics", "Awarded for her work on radioactivity with Pierre Curie and Henri Becquerel",
+  1911, "Chemistry", "Awarded for the discovery of radium and polonium"
+) %>% 
+  brief_entries(
+    glue::glue("Nobel Prize in {Type}"),
+    Year, 
+    Desc
+  )
+```
+
+# Publicaciones
+
+```{r}
+library(dplyr)
+knitr::write_bib(c("vitae", "tibble"), "biblio_EA.bib")
+
+bibliography_entries("biblio_EA.bib") %>%
+  arrange(desc(author$family), issued)
+```
+
